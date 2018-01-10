@@ -1,0 +1,1 @@
+s\AppBundle\Controller\DefaultController
