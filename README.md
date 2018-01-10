@@ -1,21 +1,63 @@
-# PHP Developer assignment
+## Purpose
+* [x] Set up the database with Doctrine.
+* [X] Run a command which accepts the feed urls(separated by comma) to grab items and save items data into DB.
+* [X] Show list of items which were grabbed by running the command line.
+* [X] Filter items by category name on the list of items.
 
-## Task
+## Testing
+* **Set up the database with Doctrine:**
+   ```
+     //Move to directory base-php
+     $ cd ../base-php
+     //Create DB
+     $ php bin/console doctrine:database:create
+     //Create table
+     $ php bin/console doctrine:schema:update --force
+   ```
 
-Your task is to create a PHP application that is a feeds reader. The app can read feed from multiple feeds and store them to database. Sample feeds http://www.feedforall.com/sample-feeds.htm.
+* **View debug log**
+  ```
+  // move to base-php directory
+  $ cd ../base-php
+  // follow debug logs in real time
+  $ php bin/console server:log -vvv
+  ```
 
-## Requirements
-- The application must be developed by using a php framework and follow coding standard of that framework.
-- As a developer, I want to run a command which help me to setup database easily with one run.
-- As a developer, I want to run a command which accepts the feed urls (separated by comma) as argument to grab items from given urls. Duplicate items are accepted.
-- As a developer, I want to see output of the command not only in shell but also in pre-defined log file. The log file should be defined as a parameter of the application.
-- As a user, I want to see the list of items which were grabbed by running the command line. I also should see the pagination if there are more than one page. The page size is up to you.
-- As a user, I want to filter items by category name on list of items.
-- As a user, I want to create new item manually
-- As a user, I want to update/delete an item
+*  **Grab item data**
+   ```
+   $ cd ../base-php
+   // Get item data 
+   $ php bin/console grab-item [urls]
+   //[urls] single: http://www.feed1.xml
+   //[urls] many: http://www.feed2.xml,http://www.feed2.xml,http://www.feed3.xml
+   ```
+*  **View item data and filter by category name:**
+   ```
+   //Start server
+   $ cd ../base-php
+   $ php bin\console server:run
+   // display output look like this:
+      //[OK] Server listening on http://127.0.0.1:8001
+      // Quit the server with CONTROL-C.
+   // Access to address: http://127.0.0.1:8001 
+    ```
+* **Run PHPunit test**
+   ```
+   // Set up DB test.
+   // Please change your config DB test at ../base-php/app/config/config_dev.yml
+   $ cd ../base-php
+   $ php bin/console doctrine:database:create --env=test
+   // Run PHPUnit test (Please make sure you created DB test succesfully)
+   $ vendor/bin/phpunit
+   // Check report at ../tests/report
+    ```
+   ![Output report](https://image.prntscr.com/image/KdI_Olh7TPa66BSssqO85w.png)
 
-## How to do
-1. Fork this repository
-2. Start coding
-3. Use gitflow to manage branches on your repository
-4. Open a pull request to this repository after done
+## Expected date
+*  25/12/2017
+
+##  Note
+* Please make sure you were set up PHP >= 7.0 and MariaDB =10.1.*
+* Please change username and password of DB at `../base-php/app/config/parameters.yml`
+* Testing on XAMP
+* PLease set up [xdebug](https://gist.github.com/odan/1abe76d373a9cbb15bed) before run PHPUnit
